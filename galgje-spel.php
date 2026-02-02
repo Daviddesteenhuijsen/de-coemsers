@@ -37,5 +37,10 @@
 </div>
     <input maxlength="1" type="text" class="antwoord-veld" name="woord" placeholder="Raad een letter...">
     <div><button type="submit">Raad</button></div>
+    <?php
+
+    echo $woord;
+
+    ?>
 </body>
 </html>

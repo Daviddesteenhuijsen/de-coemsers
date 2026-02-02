@@ -55,55 +55,14 @@ $woorden = [
     "arbeidsovereenkomst", "verzekeringspolis", "onderwijssysteem", "computertechnologie", "klimaatverandering",
     "duurzaamheidsbeleid", "persoonlijkheidsstoornis", "gebruikerservaring", "kwaliteitscontrole", "productontwikkeling", "Kindercarnavalsoptochtvoorbereidingswerkzaamhedencomitélid",
 ];
-
-// Start a new game when requested
-if (isset($_GET['nieuw'])) {
-    unset($_SESSION['woord'], $_SESSION['guessed'], $_SESSION['mistakes']);
-}
-
-// Choose a random word if not set
-if (!isset($_SESSION['woord'])) {
-    $_SESSION['woord'] = trim($woorden[array_rand($woorden)]);
-    $_SESSION['guessed'] = [];
-    $_SESSION['mistakes'] = 0;
-}
-
-$woord = mb_strtolower(trim($_SESSION['woord']));
-
-// Handle a guess
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['letter'])) {
-    $letter = mb_strtolower(trim($_POST['letter']));
-    // Take only the first character
-    $letter = mb_substr($letter, 0, 1);
-    if ($letter !== '' && !in_array($letter, $_SESSION['guessed'], true)) {
-        $_SESSION['guessed'][] = $letter;
-        if (mb_strpos($woord, $letter) === false) {
-            $_SESSION['mistakes']++;
-        }
+    if (!isset($_SESSION["woord"])) {
+        $_SESSION["woord"] = $woorden[array_rand($woorden)];
     }
-}
 
-// Game settings
-$maxMistakes = 6;
+    $woord = $_SESSION["woord"];
 
-// Build display of the word
-$chars = preg_split('//u', $woord, -1, PREG_SPLIT_NO_EMPTY);
-$display = '';
-$hiddenLeft = 0;
-foreach ($chars as $ch) {
-    if ($ch === ' ') {
-        $display .= '&nbsp; ';
-        continue;
-    }
-    if (in_array($ch, $_SESSION['guessed'], true)) {
-        $display .= htmlspecialchars($ch) . ' ';
-    } else {
-        $display .= '_ ';
-        $hiddenLeft++;
-    }
-}
-
-echo $display;
+    echo str_repeat("_ ", strlen($woord));
+    
     ?>
 </div>
     <input maxlength="1" type="text" class="antwoord-veld" name="woord" placeholder="Raad een letter...">

@@ -11,7 +11,7 @@
     <div class="button">
     <?php
     echo '<button onclick="location.href=\'zelf-kiezen.php\'">Zelf kiezen</button>';
-    echo '<button onclick="location.href=\'galgje-spel.php\'">Willekeurig</button>';
+    echo '<button onclick="location.href=\'galgje-spel-willekeurig.php\'">Willekeurig</button>';
     ?>
     </div>
 </body>
