@@ -1,0 +1,46 @@
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #f1e188;
+        }
+
+        h1 {
+            color: #dabc0f;
+            font-family: "Times New Roman", Times, serif;
+        }
+
+        .antwoord-veld:hover {
+            background-color: #eaeaea;
+        }
+
+        .antwoord-veld {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #dabc0f;
+            border-radius: 8px;
+            width: 200px;
+            color: dabc0f;
+            transition-duration: 0.5s;
+
+        }
+
+        button {
+            background-color: #dabc0f;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+            transition-duration: 0.5s;
+        }
+
+        button:hover {
+            background-color: #bfa30a;
+        }
