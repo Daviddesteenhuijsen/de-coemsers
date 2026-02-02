@@ -33,7 +33,7 @@ $woorden = [
     "leeuw","tijger","beer","olifant","aap","slang","spin","mier","bij","vlinder",
     "bloem","plant","boomstam","blad","wortel","tak","zaad","gras","bloesem","fruit",
     "groente","aardappel","tomaat","komkommer","wortel","sla","ui","knoflook","brood","kaas",
-    "boter","melk","yoghurt","vlees","kipfilet","visstick","rijst","pasta","soep","saus",
+    "boter","melk","yoghurt","vlees","kipfilet","pielemuis","visstick","rijst","pasta","soep","saus",
     "zout","peper","suiker","honing","chocolade","koekje","taart","ijsje","dessert","ontbijt",
     "lunch","diner","snack","drank","waterfles","sap","cola","thee","koffie","beker",
     "fles","kan","keuken","fornuis","oven","pan","koelkast","vriezer","wasbak","kraan",
@@ -42,26 +42,21 @@ $woorden = [
     "tuin","grasveld","bloemperk","hek","poort","schuur","straatsteen","stoep","plein","park",
     "bos","strand","zee","meer","rivier","beek","heuvel","berg","vallei","eiland",
     "wolk","regen","sneeuw","hagel","storm","wind","mist","weer","klimaat","temperatuur",
-    "lente","zomer","herfst","winter","jaar","maand","week","dag","uur","minuut",
+    "lente","zomer","herfst","winter","jaar","chingchong","maand","week","dag","uur","minuut",
     "seconde","klok","agenda","planning","taak","werk","baan","beroep","kantoor","vergadering",
     "collega","chef","klant","project","doel","idee","plan","strategie","resultaat","succes",
     "fout","probleem","oplossing","keuze","besluit","regel","wet","afspraak","contract","document",
     "bestand","map","computer","laptop","scherm","toetsenbord","muis","software","programma","code",
-    "website","pagina","link","knop","menu","formulier","veld","tekstvak","afbeelding","video",
+    "website","pagina","vagina","link","knop","menu","formulier","veld","tekstvak","afbeelding","video",
     "geluid","muziek","lied","ritme","melodie","instrument","gitaar","piano","drum","viool",
     "kunst","film","acteur","regisseur","boekwinkel","bibliotheek","krant","nieuws","artikel","informatie",
     "kennis","ervaring","gevoel","gedachte","droom","herinnering","toekomst","verleden","heden","waarheid","bezienswaardigheid", "verantwoordelijkheid", "ontwikkelingsfase", "communicatiemiddel", "omgevingsfactoren", 
     "gereedschapskist", "vervoersmiddelen", "ziekenhuispersoneel", "wetenschapsgebieden", "belangenverstrengeling",
     "arbeidsovereenkomst", "verzekeringspolis", "onderwijssysteem", "computertechnologie", "klimaatverandering",
-    "duurzaamheidsbeleid", "persoonlijkheidsstoornis", "gebruikerservaring", "kwaliteitscontrole", "productontwikkeling", "Kindercarnavalsoptochtvoorbereidingswerkzaamhedencomitélid",
+    "duurzaamheidsbeleid", "persoonlijkheidsstoornis", "gebruikerservaring", "kwaliteitscontrole", "productontwikkeling", "Kindercarnavalsoptochtvoorbereidingswerkzaamhedencomitélid","coems","balls","jieufganjaewf1"
 ];
-    if (!isset($_SESSION["woord"])) {
-        $_SESSION["woord"] = $woorden[array_rand($woorden)];
-    }
-
-    $woord = $_SESSION["woord"];
-
-    echo str_repeat("_ ", strlen($woord));
+    $index = random_int(0, count($woorden) - 1);
+    echo "_ ", $woorden[$index];
     
     ?>
 </div>
