@@ -32,13 +32,13 @@ $woorden = [
     "dier","hond","kat","vogel","vis","paard","koe","schaap","kip","eend",
     "leeuw","tijger","beer","olifant","aap","slang","spin","mier","bij","vlinder",
     "bloem","plant","boomstam","blad","wortel","tak","zaad","gras","bloesem","fruit",
-    "groente","aardappel","tomaat","komkommer","wortel","sla","ui","knoflook","brood","kaas",
+    "groente","aardappel","tomaat","komkommer","cumcummer","wortel","sla","ui","knoflook","brood","kaas",
     "boter","melk","yoghurt","vlees","kipfilet","pielemuis","visstick","rijst","pasta","soep","saus",
     "zout","peper","suiker","honing","chocolade","koekje","taart","ijsje","dessert","ontbijt",
     "lunch","diner","snack","drank","waterfles","sap","cola","thee","koffie","beker",
     "fles","kan","keuken","fornuis","oven","pan","koelkast","vriezer","wasbak","kraan",
     "badkamer","douche","bad","toilet","spiegel","handdoek","zeep","tandborstel","tandpasta","slaapkamer",
-    "bed","kussen","deken","kast","plank","lade","vloer","muur","plafond","dak",
+    "bed","kussen","laken","deken","kast","plank","lade","vloer","muur","plafond","dak",
     "tuin","grasveld","bloemperk","hek","poort","schuur","straatsteen","stoep","plein","park",
     "bos","strand","zee","meer","rivier","beek","heuvel","berg","vallei","eiland",
     "wolk","regen","sneeuw","hagel","storm","wind","mist","weer","klimaat","temperatuur",
@@ -46,19 +46,22 @@ $woorden = [
     "seconde","klok","agenda","planning","taak","werk","baan","beroep","kantoor","vergadering",
     "collega","chef","klant","project","doel","idee","plan","strategie","resultaat","succes",
     "fout","probleem","oplossing","keuze","besluit","regel","wet","afspraak","contract","document",
-    "bestand","map","computer","laptop","scherm","toetsenbord","muis","software","programma","code",
+    "bestand","map","computer","laptop","scherm","toetsenbord","appelsap","appelesappele","perensap","muis","software","programma","code",
     "website","pagina","vagina","link","knop","menu","formulier","veld","tekstvak","afbeelding","video",
     "geluid","muziek","lied","ritme","melodie","instrument","gitaar","piano","drum","viool",
     "kunst","film","acteur","regisseur","boekwinkel","bibliotheek","krant","nieuws","artikel","informatie",
     "kennis","ervaring","gevoel","gedachte","droom","herinnering","toekomst","verleden","heden","waarheid","bezienswaardigheid", "verantwoordelijkheid", "ontwikkelingsfase", "communicatiemiddel", "omgevingsfactoren", 
     "gereedschapskist", "vervoersmiddelen", "ziekenhuispersoneel", "wetenschapsgebieden", "belangenverstrengeling",
     "arbeidsovereenkomst", "verzekeringspolis", "onderwijssysteem", "computertechnologie", "klimaatverandering",
-    "duurzaamheidsbeleid", "persoonlijkheidsstoornis", "gebruikerservaring", "kwaliteitscontrole", "productontwikkeling", "Kindercarnavalsoptochtvoorbereidingswerkzaamhedencomitélid","coems","balls","jieufganjaewf1"
+    "duurzaamheidsbeleid", "persoonlijkheidsstoornis", "gebruikerservaring", "kwaliteitscontrole", "productontwikkeling", "KindercarnavalsoptochtvoorbereidingswerkzaamhedencomitÃ©lid","coems","balls","jieufganjaewf1"
 ];
-    $index = random_int(0, count($woorden) - 1);
-    echo "_ ", $woorden[$index];
-    
+    $index = array_rand( $woorden);
+    $woord = $woorden[$index];
+    $display = str_repeat("_ ", strlen($woord));
+    echo $display;
+
     ?>
+</h2><br><img src="spongebob-meme.gif" alt=""> 
 </div>
     <input maxlength="1" type="text" class="antwoord-veld" name="woord" placeholder="Raad een letter...">
     <div><button type="submit">Raad</button></div>

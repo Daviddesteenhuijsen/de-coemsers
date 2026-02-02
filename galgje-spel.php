@@ -32,6 +32,8 @@
         echo '<br><img src="bunny.gif" alt="">';
     } elseif ($woord == 'bunny') {
         echo '<br><img src="bunny.gif" alt="">';
+    } elseif ($woord == 'rabbit') {
+        echo '<br><img src="bunny.gif" alt="">';
     }
     ?>
 </div>
@@ -39,7 +41,7 @@
     <div><button type="submit">Raad</button></div>
     <?php
 
-    echo $woord;
+    
 
     ?>
 </body>
