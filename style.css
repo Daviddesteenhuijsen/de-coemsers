@@ -1,3 +1,5 @@
+        /* Algemene layout */
+        
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -9,6 +11,8 @@
             color: #dabc0f;
             font-family: "Times New Roman", Times, serif;
         }
+
+        /* Antwoord velden */
 
         .antwoord-veld:hover {
             background-color: #eaeaea;
@@ -25,6 +29,8 @@
             transition-duration: 0.5s;
 
         }
+
+        /* knoppen layout */
 
         button {
             background-color: #dabc0f;

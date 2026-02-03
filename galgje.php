@@ -10,6 +10,8 @@
 <h1>Galgje</h1>
     <div class="button">
     <?php
+
+    // knoppen voor willekeurig of zelf kiezen //
     echo '<button onclick="location.href=\'zelf-kiezen.php\'">Zelf kiezen</button>';
     echo '<button onclick="location.href=\'galgje-spel-willekeurig.php\'">Willekeurig</button>';
     ?>

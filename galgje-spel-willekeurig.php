@@ -14,6 +14,7 @@
 <?php
 session_start();
 
+// randomizer //
 $woorden = [
     "appel","boom","fiets","water","lucht","zon","maan","ster","huis","straat",
     "weg","brug","auto","trein","station","raam","deur","tafel","stoel","bord",

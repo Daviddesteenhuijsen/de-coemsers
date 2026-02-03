@@ -12,11 +12,16 @@
 
 <div class="container">
     <?php
+
+    // het woord dat geraden moet worden //
+
     $woord = $_POST['woord'] ?? 'informatica'; 
     $lengte = strlen($woord);
-    
-    $raadwoord = str_repeat("_ ", $lengte);
+
+    $raadwoord = strrepeat(" ", $lengte);
     echo "<div class='woord-display'>" . trim($raadwoord) . "</div>";
+
+    // easter eggs //
 
     if ($woord == 'coems') {
         echo '<h2>🤑🤑🤑COEMS🤑🤑🤑secret!🤑🤑🤑</h2><br><img src="spongebob-meme.gif" alt="">';
@@ -41,8 +46,30 @@
     <div><button type="submit">Raad</button></div>
     <?php
 
-    
+    // check of de letter geraden is of niet //
 
+        $klaar = true;
+        for ($i = 0; $i < strlen($woord); $i++) {
+        if ($woord[$i] != " " && !in_array($woord[$i], $raadwoord)) {
+            $klaar = false;
+        }
+    }
+
+    if ($klaar) {
+        echo "<p>Je hebt het woord geraden!</p>";
+        echo "<p>Het woord was: <b>" . $woord . "</b></p>";
+        echo "<a href='?reset=1'>Nieuw spel</a>";
+    } else {
+        echo "<p>Tot nu toe geraden: ";
+        for ($i = 0; $i < strlen($woord); $i++) {
+            if (inarray($woord[$i], $raadwoord)) {
+                echo $woord[$i] . " ";
+            } else {
+                echo " ";
+            }
+        }
+        echo "</p>";
+    }
     ?>
 </body>
 </html>
