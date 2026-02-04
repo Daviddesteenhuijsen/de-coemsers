@@ -55,8 +55,8 @@ $woorden = [
 ];
 
 $huidigwoord = isset($_POST['geheim_woord']) ? $_POST['geheim_woord'] : trim($woorden[array_rand($woorden)]);
-$geradenletters = isset($_POST['geraden_letters']) ? explode(',', $_POST['geraden_letters']) : [];
-$fouteletters = isset($_POST['foute_letters']) ? explode(',', $_POST['foute_letters']) : [];
+$geradenletters = isset($_POST['geraden_letters']) ? array_filter(explode(',', $_POST['geraden_letters'])) : [];
+$fouteletters = isset($_POST['foute_letters']) ? array_filter(explode(',', $_POST['foute_letters'])) : [];
 
 if (isset($_POST['letter'])) {
     $gok = strtolower(trim($_POST['letter']));
@@ -93,11 +93,11 @@ $gameOver = ($spongebobcount <= 0) || $gewoord;
 if ($gameOver) {
     if ($gewoord) {
         echo "<h1>Gefeliciteerd!</h1>";
-        echo "<h1>Je hebt het goed geraden!</h2>";
+        echo "<h1>Je hebt de Spongebobs gered!</h2>";
     } else {
         echo "<h3>Het woord was: $huidigwoord</h3>";
         echo "<h1>Game Over</h1>";
-        echo "<h1>Je hebt geen spongebobs meer</h1>";
+        echo "<h1>Je hebt alle Spongebobs vermoord!</h1>";
     }
 }
 ?>
