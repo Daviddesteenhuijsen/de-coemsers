@@ -80,7 +80,7 @@ echo "<p>Foute letters: " . implode(' ', $fouteletters) . "</p>";
 
 
 <?php
-$spongebobcount = 6 - count($fouteletters);
+$spongebobcount = 8 - count($fouteletters);
 for ($i = 0; $i < $spongebobcount; $i++) {
     echo '<img src="spongebob-meme.gif" alt="" class="sponge">';
 }
