@@ -12,9 +12,6 @@
 
 <div class="array">
 <?php
-session_start();
-
-// randomizer //
 $woorden = [
     "appel","boom","fiets","water","lucht","zon","maan","ster","huis","straat",
     "weg","brug","auto","trein","station","raam","deur","tafel","stoel","bord",
@@ -33,13 +30,13 @@ $woorden = [
     "dier","hond","kat","vogel","vis","paard","koe","schaap","kip","eend",
     "leeuw","tijger","beer","olifant","aap","slang","spin","mier","bij","vlinder",
     "bloem","plant","boomstam","blad","wortel","tak","zaad","gras","bloesem","fruit",
-    "groente","aardappel","tomaat","komkommer","cumcummer","wortel","sla","ui","knoflook","brood","kaas",
+    "groente","aardappel","tomaat","komkommer","wortel","sla","ui","knoflook","brood","kaas",
     "boter","melk","yoghurt","vlees","kipfilet","pielemuis","visstick","rijst","pasta","soep","saus",
     "zout","peper","suiker","honing","chocolade","koekje","taart","ijsje","dessert","ontbijt",
     "lunch","diner","snack","drank","waterfles","sap","cola","thee","koffie","beker",
     "fles","kan","keuken","fornuis","oven","pan","koelkast","vriezer","wasbak","kraan",
     "badkamer","douche","bad","toilet","spiegel","handdoek","zeep","tandborstel","tandpasta","slaapkamer",
-    "bed","kussen","laken","deken","kast","plank","lade","vloer","muur","plafond","dak",
+    "bed","kussen","deken","kast","plank","lade","vloer","muur","plafond","dak",
     "tuin","grasveld","bloemperk","hek","poort","schuur","straatsteen","stoep","plein","park",
     "bos","strand","zee","meer","rivier","beek","heuvel","berg","vallei","eiland",
     "wolk","regen","sneeuw","hagel","storm","wind","mist","weer","klimaat","temperatuur",
@@ -47,24 +44,76 @@ $woorden = [
     "seconde","klok","agenda","planning","taak","werk","baan","beroep","kantoor","vergadering",
     "collega","chef","klant","project","doel","idee","plan","strategie","resultaat","succes",
     "fout","probleem","oplossing","keuze","besluit","regel","wet","afspraak","contract","document",
-    "bestand","map","computer","laptop","scherm","toetsenbord","appelsap","appelesappele","perensap","muis","software","programma","code",
+    "bestand","map","computer","laptop","scherm","toetsenbord","muis","software","programma","code",
     "website","pagina","vagina","link","knop","menu","formulier","veld","tekstvak","afbeelding","video",
     "geluid","muziek","lied","ritme","melodie","instrument","gitaar","piano","drum","viool",
     "kunst","film","acteur","regisseur","boekwinkel","bibliotheek","krant","nieuws","artikel","informatie",
     "kennis","ervaring","gevoel","gedachte","droom","herinnering","toekomst","verleden","heden","waarheid","bezienswaardigheid", "verantwoordelijkheid", "ontwikkelingsfase", "communicatiemiddel", "omgevingsfactoren", 
     "gereedschapskist", "vervoersmiddelen", "ziekenhuispersoneel", "wetenschapsgebieden", "belangenverstrengeling",
     "arbeidsovereenkomst", "verzekeringspolis", "onderwijssysteem", "computertechnologie", "klimaatverandering",
-    "duurzaamheidsbeleid", "persoonlijkheidsstoornis", "gebruikerservaring", "kwaliteitscontrole", "productontwikkeling", "KindercarnavalsoptochtvoorbereidingswerkzaamhedencomitÃ©lid","coems","balls","jieufganjaewf1"
+    "duurzaamheidsbeleid", "persoonlijkheidsstoornis", "gebuikerservaring", "kwaliteitscontrole", "productontwikkeling", "KindercarnavalsoptochtvoorbereidingswerkzaamhedencomitÃ©lid","coems","balls","jieufganjaewf1"
 ];
-    $index = array_rand( $woorden);
-    $woord = $woorden[$index];
-    $display = str_repeat("_ ", strlen($woord));
-    echo $display;
 
-    ?>
-</h2><br><img src="spongebob-meme.gif" alt=""> 
-</div>
-    <input maxlength="1" type="text" class="antwoord-veld" name="woord" placeholder="Raad een letter...">
-    <div><button type="submit">Raad</button></div>
+$huidigwoord = isset($_POST['geheim_woord']) ? $_POST['geheim_woord'] : trim($woorden[array_rand($woorden)]);
+$geradenletters = isset($_POST['geraden_letters']) ? explode(',', $_POST['geraden_letters']) : [];
+$fouteletters = isset($_POST['foute_letters']) ? explode(',', $_POST['foute_letters']) : [];
+
+if (isset($_POST['letter'])) {
+    $gok = strtolower(trim($_POST['letter']));
+    if ($gok !== '' && !in_array($gok, $geradenletters) && !in_array($gok, $fouteletters)) {
+        if (strpos(strtolower($huidigwoord), $gok) !== false) {
+            $geradenletters[] = $gok;
+        } else {
+            $fouteletters[] = $gok;
+        }
+    }
+}
+
+$display = "";
+foreach (str_split($huidigwoord) as $l) {
+    $display .= (in_array(strtolower($l), $geradenletters)) ? $l . " " : "_ ";
+}
+
+echo "<h2>" . $display . "</h2>";
+echo "<p>Foute letters: " . implode(' ', $fouteletters) . "</p>";
+?>
+
+
+<?php
+$spongebobcount = 6 - count($fouteletters);
+for ($i = 0; $i < $spongebobcount; $i++) {
+    echo '<img src="spongebob-meme.gif" alt="" class="sponge">';
+}
+?>
+
+<?php 
+$gewoord = !str_contains($display, '_');
+$gameOver = ($spongebobcount <= 0) || $gewoord;
+
+if ($gameOver) {
+    if ($gewoord) {
+        echo "<h1>Gefeliciteerd!</h1>";
+        echo "<h1>Je hebt het goed geraden!</h2>";
+    } else {
+        echo "<h3>Het woord was: $huidigwoord</h3>";
+        echo "<h1>Game Over</h1>";
+        echo "<h1>Je hebt geen spongebobs meer</h1>";
+    }
+}
+?>
+
+<?php if (!$gameOver): ?>
+<form method="post">
+    <input type="hidden" name="geheim_woord" value="<?php echo $huidigwoord; ?>">
+    <input type="hidden" name="geraden_letters" value="<?php echo implode(',', $geradenletters); ?>">
+    <input type="hidden" name="foute_letters" value="<?php echo implode(',', $fouteletters); ?>">
+    
+    <input maxlength="1" type="text" class="antwoord-veld" name="letter" placeholder="Letter..." required autofocus autocomplete="off" pattern="[a-zA-Z]">
+    <div>
+        <button type="submit">Raad</button>
+        <?php endif; ?>
+        <a href="?"><button type="button">Nieuw spel</button></a>
+    </div>
+</form>
 </body>
 </html>

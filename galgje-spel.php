@@ -10,66 +10,79 @@
 
 <h1>Galgje</h1>
 
-<div class="container">
-    <?php
+<div class="array">
+<?php
+$huidigwoord = isset($_POST['geheim_woord']) ? $_POST['geheim_woord'] : (isset($_POST['woord']) ? strtolower(trim($_POST['woord'])) : '');
 
-    // het woord dat geraden moet worden //
+if ($huidigwoord) {
+    $geradenletters = isset($_POST['geraden_letters']) ? explode(',', $_POST['geraden_letters']) : [];
+    $fouteletters = isset($_POST['foute_letters']) ? explode(',', $_POST['foute_letters']) : [];
 
-    $woord = $_POST['woord'] ?? 'informatica'; 
-    $lengte = strlen($woord);
-
-    $raadwoord = strrepeat(" ", $lengte);
-    echo "<div class='woord-display'>" . trim($raadwoord) . "</div>";
-
-    // easter eggs //
-
-    if ($woord == 'coems') {
-        echo '<h2>🤑🤑🤑COEMS🤑🤑🤑secret!🤑🤑🤑</h2><br><img src="spongebob-meme.gif" alt="">';
-    } elseif ($woord == '🤑') {
-        echo '<h2>🤑🤑🤑COEMS🤑🤑🤑secret!🤑🤑🤑</h2><br><img src="spongebob-meme.gif" alt="">';
-    }
-
-    if ($woord == 'ronaldo') {
-        echo '<br><img src="ronaldo-drinking-meme.gif" alt="">';
-    }
-
-    if ($woord == 'konijn') {
-        echo '<br><img src="bunny.gif" alt="">';
-    } elseif ($woord == 'bunny') {
-        echo '<br><img src="bunny.gif" alt="">';
-    } elseif ($woord == 'rabbit') {
-        echo '<br><img src="bunny.gif" alt="">';
-    }
-    ?>
-</div>
-    <input maxlength="1" type="text" class="antwoord-veld" name="woord" placeholder="Raad een letter...">
-    <div><button type="submit">Raad</button></div>
-    <?php
-
-    // check of de letter geraden is of niet //
-
-        $klaar = true;
-        for ($i = 0; $i < strlen($woord); $i++) {
-        if ($woord[$i] != " " && !in_array($woord[$i], $raadwoord)) {
-            $klaar = false;
-        }
-    }
-
-    if ($klaar) {
-        echo "<p>Je hebt het woord geraden!</p>";
-        echo "<p>Het woord was: <b>" . $woord . "</b></p>";
-        echo "<a href='?reset=1'>Nieuw spel</a>";
-    } else {
-        echo "<p>Tot nu toe geraden: ";
-        for ($i = 0; $i < strlen($woord); $i++) {
-            if (inarray($woord[$i], $raadwoord)) {
-                echo $woord[$i] . " ";
+    if (isset($_POST['letter'])) {
+        $gok = strtolower(trim($_POST['letter']));
+        if ($gok !== '' && !in_array($gok, $geradenletters) && !in_array($gok, $fouteletters)) {
+            if (strpos(strtolower($huidigwoord), $gok) !== false) {
+                $geradenletters[] = $gok;
             } else {
-                echo " ";
+                $fouteletters[] = $gok;
             }
         }
-        echo "</p>";
+    }
+
+    $display = "";
+    foreach (str_split($huidigwoord) as $l) {
+        $display .= (in_array(strtolower($l), $geradenletters)) ? $l . " " : "_ ";
+    }
+
+    echo "<h2>" . $display . "</h2>";
+    echo "<p>Foute letters: " . implode(' ', $fouteletters) . "</p>";
+    ?>
+
+    <?php
+    $spongebobcount = 6 - count($fouteletters);
+    for ($i = 0; $i < $spongebobcount; $i++) {
+        echo '<img src="spongebob-meme.gif" alt="" class="sponge">';
     }
     ?>
+
+    <?php 
+    $gewoord = !str_contains($display, '_');
+    $gameOver = ($spongebobcount <= 0) || $gewoord;
+
+    if ($gameOver) {
+        if ($gewoord) {
+            echo "<h1>Gefeliciteerd!</h1>";
+            echo "<h1>Je hebt het goed geraden!</h1>";
+        } else {
+            echo "<h3>Het woord was: $huidigwoord</h3>";
+            echo "<h1>Game Over</h1>";
+            echo "<h1>Je hebt geen spongebobs meer</h1>";
+        }
+    }
+    ?>
+
+    <?php if (!$gameOver): ?>
+    <form method="post">
+        <input type="hidden" name="geheim_woord" value="<?php echo $huidigwoord; ?>">
+        <input type="hidden" name="geraden_letters" value="<?php echo implode(',', $geradenletters); ?>">
+        <input type="hidden" name="foute_letters" value="<?php echo implode(',', $fouteletters); ?>">
+        
+        <input maxlength="1" type="text" class="antwoord-veld" name="letter" placeholder="Letter..." required autofocus autocomplete="off" pattern="[a-zA-Z]">
+        <div>
+            <button type="submit">Raad</button>
+            <?php endif; ?>
+            <a href="?"><button type="button">Nieuw spel</button></a>
+        </div>
+    </form>
+    <?php
+} else {
+    echo "<h1>Voer een woord in om mee te spelen:</h1>";
+}
+    ?>
+    <form method="post">
+        <input type="text" name="woord" placeholder="Kies een woord..." required>
+        <button type="submit">Spel starten</button>
+    </form>
+</div>
 </body>
 </html>
