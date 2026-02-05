@@ -12,6 +12,7 @@
 
 <div class="array">
 <?php
+// alle woorden in een array voor de randomizer //
 $woorden = [
     "appel","boom","fiets","water","lucht","zon","maan","ster","huis","straat",
     "weg","brug","auto","trein","station","raam","deur","tafel","stoel","bord",
@@ -54,13 +55,19 @@ $woorden = [
     "duurzaamheidsbeleid", "persoonlijkheidsstoornis", "gebuikerservaring", "kwaliteitscontrole", "productontwikkeling", "KindercarnavalsoptochtvoorbereidingswerkzaamhedencomitÃ©lid","coems","balls","jieufganjaewf1"
 ];
 
+// Woorden invoer en printing + letter invoer plus printing //
 $huidigwoord = isset($_POST['geheim_woord']) ? $_POST['geheim_woord'] : trim($woorden[array_rand($woorden)]);
 $geradenletters = isset($_POST['geraden_letters']) ? array_filter(explode(',', $_POST['geraden_letters'])) : [];
 $fouteletters = isset($_POST['foute_letters']) ? array_filter(explode(',', $_POST['foute_letters'])) : [];
 
+// invoer van de letter //
 if (isset($_POST['letter'])) {
     $gok = strtolower(trim($_POST['letter']));
+
+// Checked of de letter in het woord zit //
     if ($gok !== '' && !in_array($gok, $geradenletters) && !in_array($gok, $fouteletters)) {
+
+// Letter is fout geraden dan verschijnt hij als foutletter en andersom //
         if (strpos(strtolower($huidigwoord), $gok) !== false) {
             $geradenletters[] = $gok;
         } else {
@@ -69,50 +76,50 @@ if (isset($_POST['letter'])) {
     }
 }
 
-$display = "";
+// Weergeeft het woord als "____" //
+$weergave = "";
 foreach (str_split($huidigwoord) as $l) {
-    $display .= (in_array(strtolower($l), $geradenletters)) ? $l . " " : "_ ";
+    $weergave .= (in_array(strtolower($l), $geradenletters)) ? $l . " " : "_ ";
 }
 
-echo "<h2>" . $display . "</h2>";
+// Gerade letter niet in het woord = letter boven en spongebob eraf //
+echo "<h2>" . $weergave . "</h2>";
 echo "<p>Foute letters: " . implode(' ', $fouteletters) . "</p>";
-?>
 
-
-<?php
-$spongebobcount = 8 - count($fouteletters);
-for ($i = 0; $i < $spongebobcount; $i++) {
+$spongebobs = 8 - count($fouteletters);
+for ($i = 0; $i < $spongebobs; $i++) {
     echo '<img src="spongebob-meme.gif" alt="" class="sponge">';
 }
-?>
 
-<?php 
-$gewoord = !str_contains($display, '_');
-$gameOver = ($spongebobcount <= 0) || $gewoord;
+// checked of je nog genoeg spongebobs hebt of niet, gamer over = 0 //
+$levens = !str_contains($weergave, '_');
+$gameover = ($spongebobs <= 0) || $levens;
 
-if ($gameOver) {
-    if ($gewoord) {
+if ($gameover) {
+    if ($levens) {
         echo "<h1>Gefeliciteerd!</h1>";
-        echo "<h1>Je hebt de Spongebobs gered!</h2>";
+        echo "<h1>Je hebt de Spongebobs gered!</h1>";
     } else {
         echo "<h3>Het woord was: $huidigwoord</h3>";
         echo "<h1>Game Over</h1>";
         echo "<h1>Je hebt alle Spongebobs vermoord!</h1>";
     }
 }
-?>
 
-<?php if (!$gameOver): ?>
+// game over = alle buttons en input velden weg behalve "nieuw spel" //
+if (!$gameover): 
+?>
 <form method="post">
     <input type="hidden" name="geheim_woord" value="<?php echo $huidigwoord; ?>">
     <input type="hidden" name="geraden_letters" value="<?php echo implode(',', $geradenletters); ?>">
     <input type="hidden" name="foute_letters" value="<?php echo implode(',', $fouteletters); ?>">
-    
+
+    <?php // zorgt ervoor dat je allen a-zA-Z letters kan invullen // ?>
     <input maxlength="1" type="text" class="antwoord-veld" name="letter" placeholder="Letter..." required autofocus autocomplete="off" pattern="[a-zA-Z]">
     <div>
         <button type="submit">Raad</button>
         <?php endif; ?>
-        <a href="?"><button type="button">Nieuw spel</button></a>
+        <a href="galgje.php"><button type="button">Nieuw spel</button></a>
     </div>
 </form>
 </body>
