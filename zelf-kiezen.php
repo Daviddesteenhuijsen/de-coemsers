@@ -10,7 +10,7 @@
 <h1>GalgBob</h1>
 <h1>Voor hier je woord in...</h1>
     <form method="post" action="galgje-spel.php">
-        <input type="text" class="antwoord-veld" name="woord" placeholder="Typ hier je woord...">
+        <input maxlength="20" type="text" class="antwoord-veld" name="woord" placeholder="Typ hier je woord..." pattern="[a-zA-Z]+" required>
         <div><button type="submit">Bevestig woord</button></div>
     </form>
 </body>

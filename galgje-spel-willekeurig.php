@@ -84,6 +84,9 @@ $woorden = [
     "balls",
     "jieufganjaewf1"
 ];
+// Haal het woord en gerade letters op uit POST of initialiseer ze
+$huidigwoord = isset($_POST['geheim_woord']) ? $_POST['geheim_woord'] : $woorden[array_rand($woorden)];
+$geradenletters = isset($_POST['geraden_letters']) ? array_filter(explode(',', $_POST['geraden_letters'])) : [];
 $fouteletters = isset($_POST['foute_letters']) ? array_filter(explode(',', $_POST['foute_letters'])) : [];
 if (isset($_POST['letter'])) {
     $gok = strtolower(trim($_POST['letter']));
@@ -138,7 +141,7 @@ if (!$gameover) :
         <input maxlength="1" type="text" class="antwoord-veld" name="letter" placeholder="Letter..." required autofocus autocomplete="off" pattern="[a-zA-Z]">
         <div>
             <button type="submit">Raad</button>
-<?php endif; ?>
+        <?php endif; ?>
 <a href="galgje.php"><button type="button">Nieuw spel</button></a>
         </div>
     </form>
