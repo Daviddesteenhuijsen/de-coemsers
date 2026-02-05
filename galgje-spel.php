@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Galgje (Cas en David)</title>
+    <title>GalgBob (Cas, David en Spongbob)</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
-<h1>Galgje</h1>
+<h1>GalgBob</h1>
 
 <div class="array">
 <?php
@@ -39,7 +39,7 @@ if ($huidigwoord) {
     ?>
 
     <?php
-    $spongebobcount = 6 - count($fouteletters);
+    $spongebobcount = 8 - count($fouteletters);
     for ($i = 0; $i < $spongebobcount; $i++) {
         echo '<img src="spongebob-meme.gif" alt="" class="sponge">';
     }
@@ -71,15 +71,12 @@ if ($huidigwoord) {
         <div>
             <button type="submit">Raad</button>
             <?php endif; ?>
-            <a href="?"><button type="button">Nieuw spel</button></a>
+            <a href="zelf-kiezen.php"><button type="button">Nieuw spel</button></a>
         </div>
     </form>
     <?php
-} else {
-    echo "<h1>Voer een woord in om mee te spelen:</h1>";
 }
-    ?>
-
+?>
 </div>
 </body>
 </html>
