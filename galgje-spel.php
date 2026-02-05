@@ -15,26 +15,24 @@
 <?php
 $huidigwoord = $_POST['geheim_woord'] ?? (isset($_POST['woord']) ? strtolower(trim($_POST['woord'])) : '');
 
-
 if ($huidigwoord) {
     $geradenletters = isset($_POST['geraden_letters']) ? array_filter(explode(',', $_POST['geraden_letters'])) : [];
     $fouteletters = isset($_POST['foute_letters']) ? array_filter(explode(',', $_POST['foute_letters'])) : [];
 
-// invoer van de letter //
-if (isset($_POST['letter'])) {
-    $gok = strtolower(trim($_POST['letter']));
+    // invoer van de letter //
+    if (isset($_POST['letter'])) {
+        $gok = strtolower(trim($_POST['letter']));
+        // Checked of de letter in het woord zit //
+        if ($gok !== '' && !in_array($gok, $geradenletters) && !in_array($gok, $fouteletters)) {
 
-// Checked of de letter in het woord zit //
-    if ($gok !== '' && !in_array($gok, $geradenletters) && !in_array($gok, $fouteletters)) {
-
-// Letter is fout geraden dan verschijnt hij als foutletter en andersom //
-        if (strpos(strtolower($huidigwoord), $gok) !== false) {
-            $geradenletters[] = $gok;
-        } else {
-            $fouteletters[] = $gok;
+            // Letter is fout geraden dan verschijnt hij als foutletter en andersom //
+            if (strpos(strtolower($huidigwoord), $gok) !== false) {
+                $geradenletters[] = $gok;
+            } else {
+                $fouteletters[] = $gok;
+            }
         }
     }
-}
 
     $weergave = "";
     foreach (str_split($huidigwoord) as $l) {
@@ -49,8 +47,8 @@ if (isset($_POST['letter'])) {
     for ($i = 0; $i < $spongebobcount; $i++) {
         echo '<img src="spongebob-meme.gif" alt="" class="sponge">';
     }
-  
-    //zorgt ervoor dat het woord in _ weergegeven wordt
+
+    // zorgt ervoor dat het woord in _ weergegeven wordt
     $gewoord = !str_contains($weergave, '_');
     $dood = ($spongebobcount <= 0) || $gewoord;
 
@@ -66,21 +64,21 @@ if (isset($_POST['letter'])) {
         }
     }
 
-    // maakt het gehieme woord de geraden letters en foute letters niet zichtbaar als je dood bent
-if (!$dood): ?>
-    <form method="post">
-        <input type="hidden" name="geheim_woord" value="<?php echo $huidigwoord; ?>">
-        <input type="hidden" name="geraden_letters" value="<?php echo implode(',', $geradenletters); ?>">
-        <input type="hidden" name="foute_letters" value="<?php echo implode(',', $fouteletters); ?>">
-        
-    <!--zorgt ervoor dat je maar 1 letter kan invullen-->
-        <input maxlength="1" type="text" class="antwoord-veld" name="letter" placeholder="Letter..." required autofocus autocomplete="off" pattern="[a-zA-Z]">
-        <div>
-            <button type="submit">Raad</button>
+    // maakt het geheime woord de geraden letters en foute letters niet zichtbaar als je dood bent
+    if (!$dood) : ?>
+        <form method="post">
+            <input type="hidden" name="geheim_woord" value="<?php echo $huidigwoord; ?>">
+            <input type="hidden" name="geraden_letters" value="<?php echo implode(',', $geradenletters); ?>">
+            <input type="hidden" name="foute_letters" value="<?php echo implode(',', $fouteletters); ?>">
+
+            <!--zorgt ervoor dat je maar 1 letter kan invullen-->
+            <input maxlength="1" type="text" class="antwoord-veld" name="letter" placeholder="Letter..." required autofocus autocomplete="off" pattern="[a-zA-Z]">
+            <div>
+                <button type="submit">Raad</button>
             <?php endif; ?>
-            <a href="galgje.php"><button type="button">Nieuw spel</button></a>
-        </div>
-    </form>
+    <a href="galgje.php"><button type="button">Nieuw spel</button></a>
+            </div>
+        </form>
     <?php
 }
 ?>

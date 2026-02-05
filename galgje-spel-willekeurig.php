@@ -49,25 +49,45 @@ $woorden = [
     "website","pagina","vagina","link","knop","menu","formulier","veld","tekstvak","afbeelding","video",
     "geluid","muziek","lied","ritme","melodie","instrument","gitaar","piano","drum","viool",
     "kunst","film","acteur","regisseur","boekwinkel","bibliotheek","krant","nieuws","artikel","informatie",
-    "kennis","ervaring","gevoel","gedachte","droom","herinnering","toekomst","verleden","heden","waarheid","bezienswaardigheid", "verantwoordelijkheid", "ontwikkelingsfase", "communicatiemiddel", "omgevingsfactoren", 
-    "gereedschapskist", "vervoersmiddelen", "ziekenhuispersoneel", "wetenschapsgebieden", "belangenverstrengeling",
-    "arbeidsovereenkomst", "verzekeringspolis", "onderwijssysteem", "computertechnologie", "klimaatverandering",
-    "duurzaamheidsbeleid", "persoonlijkheidsstoornis", "gebuikerservaring", "kwaliteitscontrole", "productontwikkeling", "KindercarnavalsoptochtvoorbereidingswerkzaamhedencomitÃ©lid","coems","balls","jieufganjaewf1"
+    "kennis",
+    "ervaring",
+    "gevoel",
+    "gedachte",
+    "droom",
+    "herinnering",
+    "toekomst",
+    "verleden",
+    "heden",
+    "waarheid",
+    "bezienswaardigheid",
+    "verantwoordelijkheid",
+    "ontwikkelingsfase",
+    "communicatiemiddel",
+    "omgevingsfactoren",
+    "gereedschapskist",
+    "vervoersmiddelen",
+    "ziekenhuispersoneel",
+    "wetenschapsgebieden",
+    "belangenverstrengeling",
+    "arbeidsovereenkomst",
+    "verzekeringspolis",
+    "onderwijssysteem",
+    "computertechnologie",
+    "klimaatverandering",
+    "duurzaamheidsbeleid",
+    "persoonlijkheidsstoornis",
+    "gebuikerservaring",
+    "kwaliteitscontrole",
+    "productontwikkeling",
+    "Kindercarnavalsoptochtvoorbereidingswerkzaamhedencomitelid",
+    "coems",
+    "balls",
+    "jieufganjaewf1"
 ];
-
-// Woorden invoer en printing + letter invoer plus printing //
-$huidigwoord = isset($_POST['geheim_woord']) ? $_POST['geheim_woord'] : trim($woorden[array_rand($woorden)]);
-$geradenletters = isset($_POST['geraden_letters']) ? array_filter(explode(',', $_POST['geraden_letters'])) : [];
 $fouteletters = isset($_POST['foute_letters']) ? array_filter(explode(',', $_POST['foute_letters'])) : [];
-
-// invoer van de letter //
 if (isset($_POST['letter'])) {
     $gok = strtolower(trim($_POST['letter']));
-
-// Checked of de letter in het woord zit //
     if ($gok !== '' && !in_array($gok, $geradenletters) && !in_array($gok, $fouteletters)) {
-
-// Letter is fout geraden dan verschijnt hij als foutletter en andersom //
         if (strpos(strtolower($huidigwoord), $gok) !== false) {
             $geradenletters[] = $gok;
         } else {
@@ -107,20 +127,20 @@ if ($gameover) {
 }
 
 // game over = alle buttons en input velden weg behalve "nieuw spel" //
-if (!$gameover): 
-?>
-<form method="post">
-    <input type="hidden" name="geheim_woord" value="<?php echo $huidigwoord; ?>">
-    <input type="hidden" name="geraden_letters" value="<?php echo implode(',', $geradenletters); ?>">
-    <input type="hidden" name="foute_letters" value="<?php echo implode(',', $fouteletters); ?>">
+if (!$gameover) : 
+    ?>
+    <form method="post">
+        <input type="hidden" name="geheim_woord" value="<?php echo $huidigwoord; ?>">
+        <input type="hidden" name="geraden_letters" value="<?php echo implode(',', $geradenletters); ?>">
+        <input type="hidden" name="foute_letters" value="<?php echo implode(',', $fouteletters); ?>">
 
-    <?php // zorgt ervoor dat je allen a-zA-Z letters kan invullen // ?>
-    <input maxlength="1" type="text" class="antwoord-veld" name="letter" placeholder="Letter..." required autofocus autocomplete="off" pattern="[a-zA-Z]">
-    <div>
-        <button type="submit">Raad</button>
+        <?php // zorgt ervoor dat je allen a-zA-Z letters kan invullen // ?>
+        <input maxlength="1" type="text" class="antwoord-veld" name="letter" placeholder="Letter..." required autofocus autocomplete="off" pattern="[a-zA-Z]">
+        <div>
+            <button type="submit">Raad</button>
         <?php endif; ?>
-        <a href="galgje.php"><button type="button">Nieuw spel</button></a>
-    </div>
-</form>
+<a href="galgje.php"><button type="button">Nieuw spel</button></a>
+        </div>
+    </form>
 </body>
 </html>
