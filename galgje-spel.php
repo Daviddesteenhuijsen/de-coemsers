@@ -18,14 +18,9 @@ $huidigwoord = $_POST['geheim_woord'] ?? (isset($_POST['woord']) ? strtolower(tr
 if ($huidigwoord) {
     $geradenletters = isset($_POST['geraden_letters']) ? array_filter(explode(',', $_POST['geraden_letters'])) : [];
     $fouteletters = isset($_POST['foute_letters']) ? array_filter(explode(',', $_POST['foute_letters'])) : [];
-
-    // invoer van de letter //
     if (isset($_POST['letter'])) {
         $gok = strtolower(trim($_POST['letter']));
-        // Checked of de letter in het woord zit //
         if ($gok !== '' && !in_array($gok, $geradenletters) && !in_array($gok, $fouteletters)) {
-
-            // Letter is fout geraden dan verschijnt hij als foutletter en andersom //
             if (strpos(strtolower($huidigwoord), $gok) !== false) {
                 $geradenletters[] = $gok;
             } else {
@@ -75,9 +70,9 @@ if ($huidigwoord) {
             <input maxlength="1" type="text" class="antwoord-veld" name="letter" placeholder="Letter..." required autofocus autocomplete="off" pattern="[a-zA-Z]">
             <div>
                 <button type="submit">Raad</button>
-            <?php endif; ?>
+    <?php endif; ?>
     <a href="galgje.php"><button type="button">Nieuw spel</button></a>
-            </div>
+    </div>
         </form>
     <?php
 }

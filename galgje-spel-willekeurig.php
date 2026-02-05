@@ -138,7 +138,7 @@ if (!$gameover) :
         <input maxlength="1" type="text" class="antwoord-veld" name="letter" placeholder="Letter..." required autofocus autocomplete="off" pattern="[a-zA-Z]">
         <div>
             <button type="submit">Raad</button>
-        <?php endif; ?>
+<?php endif; ?>
 <a href="galgje.php"><button type="button">Nieuw spel</button></a>
         </div>
     </form>
