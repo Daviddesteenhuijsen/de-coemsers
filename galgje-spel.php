@@ -15,8 +15,8 @@
 $huidigwoord = isset($_POST['geheim_woord']) ? $_POST['geheim_woord'] : (isset($_POST['woord']) ? strtolower(trim($_POST['woord'])) : '');
 
 if ($huidigwoord) {
-    $geradenletters = isset($_POST['geraden_letters']) ? explode(',', $_POST['geraden_letters']) : [];
-    $fouteletters = isset($_POST['foute_letters']) ? explode(',', $_POST['foute_letters']) : [];
+    $geradenletters = isset($_POST['geraden_letters']) ? array_filter(explode(',', $_POST['geraden_letters'])) : [];
+    $fouteletters = isset($_POST['foute_letters']) ? array_filter(explode(',', $_POST['foute_letters'])) : [];
 
     if (isset($_POST['letter'])) {
         $gok = strtolower(trim($_POST['letter']));
@@ -79,10 +79,7 @@ if ($huidigwoord) {
     echo "<h1>Voer een woord in om mee te spelen:</h1>";
 }
     ?>
-    <form method="post">
-        <input type="text" name="woord" placeholder="Kies een woord..." required>
-        <button type="submit">Spel starten</button>
-    </form>
+
 </div>
 </body>
 </html>
